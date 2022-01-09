@@ -14,6 +14,7 @@ contract EthWallet {
     }
     
     function send(address payable _to, uint256 _amount) public onlyOwner {
+        require(_to != address(0), 'WARNING: invalid address field');
         _to.transfer(_amount);
     } 
     function balanceOf() view onlyOwner public returns(uint256) {
@@ -21,6 +22,7 @@ contract EthWallet {
     }
 
     function withdraw(uint256 _amount) public onlyOwner {
+        require(_amount <= address(this).balance, 'insufficient balance');
         payable(msg.sender).transfer(_amount);
     }
 

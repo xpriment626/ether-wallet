@@ -46,4 +46,11 @@ contract("EthWallet", (accounts) => {
         }
         assert(false);
     });
+    it("Should not allow withdrawals exceeding contract balance", async () => {
+        try {
+            await ethInstance.withdraw(500);
+        } catch (e) {
+            assert(e.message.includes("insufficient balance"));
+        }
+    });
 });
